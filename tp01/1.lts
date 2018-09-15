@@ -71,3 +71,18 @@ CONTROL[i:0..M] = (when(i<M) pasajero -> MOLINETE[i+1] | when(i==M) partida -> T
 
 /*Ejercicio 7*/
 
+// 7.a)
+CLIENT = (call -> wait -> continue -> CLIENT).
+SERVER = (request -> service -> reply -> SERVER).
+|| CLIENT_SERVER_A = (a:CLIENT || b:CLIENT || {a,b}::SERVER) / {a.call/a.request, a.reply/a.wait, b.call/b.request, b.reply/b.wait}.
+
+// 7.b)
+CLIENT_B = (call -> (wait -> continue -> CLIENT_B | timeout -> CLIENT_B)).
+SERVER_B = (request -> service -> reply -> SERVER_B).
+|| CLIENT_SERVER_B = (a:CLIENT_B || b:CLIENT_B || {a,b}::SERVER_B) / {a.call/a.request, a.reply/a.wait, b.call/b.request, b.reply/b.wait}.
+
+// 7.c)
+CLIENT_C = (call -> (wait -> continue -> CLIENT_C | timeout -> CLIENT_C)).
+SERVER_C = (request -> service -> (reply -> SERVER_C | timeout -> SERVER_C)).
+|| CLIENT_SERVER_C = (a:CLIENT_C || b:CLIENT_C || {a,b}::SERVER_C) / {a.call/a.request, a.reply/a.wait, b.call/b.request, b.reply/b.wait}.
+
